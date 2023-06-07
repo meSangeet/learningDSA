@@ -38,27 +38,40 @@ ll fpow(ll x, ll y)
 }
 ll inv(ll a, ll p = mod) { return fpow(a, p - 2); }
 
-
 int main()
 {
     int t;
     cin >> t;
     while (t--)
     {
-        int n; cin>>n;
+        int n;
+        cin >> n;
         vector<int> arr;
         int odd = 0, even = 0;
-        for(int i = 0; i<n; i++)
+        for (int i = 0; i < n; i++)
         {
-            int p; cin>>p;
+            int p;
+            cin >> p;
             arr.pb(p);
-            if(p%2 == 0) even++;
-            else odd++;
+            if (p % 2 == 0)
+                even++;
+            else
+                odd++;
         }
         ll sumo = 0;
         ll count = 0;
         ll oddCount = 0;
-        sumo += fpow(2,even);
+        if (odd == 0)
+        {
+            sumo += fpow(2, even);
+            cout << (sumo - 1) << endl;
+        }
+        else
+        {
+            sumo += fpow(2, even);
+            cout << sumo << endl;
+        }
+        /*
         if(odd > 1){
             if(odd%2 == 0){
                 for(int i = 2; i<=odd; i = i+2){
@@ -80,7 +93,7 @@ int main()
                 sumo = (sumo+oddCount)%mod;
             }
             cout<<sumo<<endl;
-        }
+        }*/
     }
     return 0;
 }

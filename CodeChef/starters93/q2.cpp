@@ -34,7 +34,6 @@ ll fpow(ll x, ll y)
         y = y >> 1ll;
         x = (x * x) % mod;
     }
-    return res;
 }
 ll inv(ll a, ll p = mod) { return fpow(a, p - 2); }
 
@@ -44,6 +43,32 @@ int main()
     cin >> t;
     while (t--)
     {
+        int n, m;
+        cin >> n >> m;
+        if (n > m)
+        {
+            int dif = n - m;
+            if (dif % 2 == 0)
+            {
+                cout << "YES" << endl;
+            }
+            else
+            {
+                cout << "NO" << endl;
+            }
+        }
+        else
+        {
+            int dif = m - n;
+            if (dif % 2 == 0)
+            {
+                cout << "YES" << endl;
+            }
+            else
+            {
+                cout << "NO" << endl;
+            }
+        }
     }
     return 0;
 }
