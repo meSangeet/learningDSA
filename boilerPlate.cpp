@@ -38,12 +38,15 @@ ll fpow(ll x, ll y)
 }
 ll inv(ll a, ll p = mod) { return fpow(a, p - 2); }
 
+void solve()
+{
+    int t; cin>>t;
+    while(t--)
+    {
+
+    }
+}
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-    }
     return 0;
 }
