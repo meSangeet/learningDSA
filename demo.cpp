@@ -1,86 +1,54 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+
 using namespace std;
-#define mod 1000000007
-#define ll long long
-#define pie 3.1415926535898
-#define pb push_back
 
-ll mult(ll a, ll b, ll p = mod)
-{
-    return ((a % p) * (b % p)) % p;
-}
-ll add(ll a, ll b, ll p = mod)
-{
-    return ((a % p) + (b % p)) % p;
-}
-ll neg(ll a, ll p = mod)
-{
-    return (p - (a % p)) % p;
-}
-ll sub(ll a, ll b, ll p = mod)
-{
-    return add(a, neg(b));
-}
-ll fpow(ll x, ll y)
-{
-    ll res = 1;
-    x = x % mod;
-    if (x == 0)
-        return 0;
-    while (y > 0)
-    {
-        if (y & 1ll)
-            res = (res * x) % mod;
-        y = y >> 1ll;
-        x = (x * x) % mod;
+string checkSubsequenceExists(vector<int>& arr, int target) {
+        int n = arr.size();
+    int bitwiseAnd = arr[0];
+
+    for (int i = 1; i < n; i++) {
+        bitwiseAnd &= arr[i];
+        if (bitwiseAnd == target) {
+            return "YES";
+        }
     }
-    return res;
+    for (int i = 1; i < (1 << n); i++) {
+        bool flag = false;
+        for (int j = 0; j < n; j++) {
+            if ((i >> j) & 1) {
+                if(!flag)
+                {
+                    bitwiseAnd = arr[j];
+                    flag = true;
+                }
+                bitwiseAnd &= arr[j];
+            }
+        }
+        if (bitwiseAnd == target) {
+            return "YES";
+        }
+    }
+    return "NO";
 }
-ll inv(ll a, ll p = mod) { return fpow(a, p - 2); }
 
-
-int main()
-{
+int main() {
     int t;
     cin >> t;
-    while (t--)
-    {
-        int n; cin>>n;
-        vector<int> arr;
-        int odd = 0, even = 0;
-        for(int i = 0; i<n; i++)
-        {
-            int p; cin>>p;
-            arr.pb(p);
-            if(p%2 == 0) even++;
-            else odd++;
+
+    for (int i = 0; i < t; i++) {
+        int n, b;
+        cin >> n >> b;
+
+        vector<int> a(n);
+        for (int j = 0; j < n; j++) {
+            cin >> a[j];
         }
-        ll sumo = 0;
-        ll count = 0;
-        ll oddCount = 0;
-        sumo += fpow(2,even);
-        if(odd > 1){
-            if(odd%2 == 0){
-                for(int i = 2; i<=odd; i = i+2){
-                    ll mul = 1;
-                    for(int j = odd; j > (odd - i); j = j-2){
-                        mul = (mul*j)%mod;
-                    }
-                    oddCount = (oddCount + mul)%mod;
-                }
-                sumo = (sumo+oddCount)%mod;
-            }else{
-                for(int i = 2; i<odd; i = i+2){
-                    ll mul = 1;
-                    for(int j = odd; j > (odd - i); j = j-2){
-                        mul = (mul*j)%mod;
-                    }
-                    oddCount = (oddCount + mul)%mod;
-                }
-                sumo = (sumo+oddCount)%mod;
-            }
-            cout<<sumo<<endl;
-        }
+
+        string result = checkSubsequenceExists(a, b);
+
+        cout << result << endl;
     }
+
     return 0;
 }
