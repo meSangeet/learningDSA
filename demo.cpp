@@ -1,54 +1,48 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
-using namespace std;
-
-string checkSubsequenceExists(vector<int>& arr, int target) {
-        int n = arr.size();
-    int bitwiseAnd = arr[0];
-
-    for (int i = 1; i < n; i++) {
-        bitwiseAnd &= arr[i];
-        if (bitwiseAnd == target) {
-            return "YES";
-        }
-    }
-    for (int i = 1; i < (1 << n); i++) {
-        bool flag = false;
-        for (int j = 0; j < n; j++) {
-            if ((i >> j) & 1) {
-                if(!flag)
-                {
-                    bitwiseAnd = arr[j];
-                    flag = true;
-                }
-                bitwiseAnd &= arr[j];
+int findMinBoxes(int N, std::vector<long long>& A) {
+    std::vector<std::vector<long long>> boxes;
+    
+    for (const auto& x : A) {
+        bool found_box = false;
+        
+        for (auto& box : boxes) {
+            long long box_xor = std::accumulate(box.begin(), box.end(), 0, [](long long a, long long b) { return a ^ b; });
+            
+            if (box_xor >= x) {
+                box.push_back(x);
+                found_box = true;
+                break;
             }
         }
-        if (bitwiseAnd == target) {
-            return "YES";
+        
+        if (!found_box) {
+            boxes.push_back({x});
         }
     }
-    return "NO";
+    
+    return boxes.size();
 }
 
 int main() {
-    int t;
-    cin >> t;
-
-    for (int i = 0; i < t; i++) {
-        int n, b;
-        cin >> n >> b;
-
-        vector<int> a(n);
-        for (int j = 0; j < n; j++) {
-            cin >> a[j];
+    int T;
+    std::cin >> T;
+    
+    while (T--) {
+        int N;
+        std::cin >> N;
+        
+        std::vector<long long> A(N);
+        for (int i = 0; i < N; ++i) {
+            std::cin >> A[i];
         }
-
-        string result = checkSubsequenceExists(a, b);
-
-        cout << result << endl;
+        
+        int min_boxes = findMinBoxes(N, A);
+        std::cout << min_boxes << std::endl;
     }
-
+    
     return 0;
 }
