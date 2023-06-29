@@ -25,7 +25,6 @@ public:
             else{
                 if(nums[i] < bar2 && nums[i] > bar1)
                 {
-                    bar2 = nums[i];
                 }else if(nums[i] < bar1 && nums[i] < temp){
                     temp = nums[i];
                 }else if(nums[i] <= bar1 && nums[i] > temp){
