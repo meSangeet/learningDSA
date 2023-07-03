@@ -14,7 +14,7 @@ public:
             m[groupSizes[i]].push_back(i);
         }
         for(auto z: m)
-        {
+ {
             int total = z.second.size();
             int siz = z.first;
             int times = total/siz;
