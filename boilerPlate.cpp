@@ -1,10 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+
+//macros
 #define mod 1000000007
 #define ll long long
+#define ld long double
+#define pub push_back
+#define pob pop_back
+#define pof pop_front
+#define puf push_front
+#define mp make_pair
+#define vi vector<ll>
+#define vp vector<pair<ll,ll>>
+#define vii vector<vi>
 #define pie 3.1415926535898
 #define pb push_back
+#define fr(n) for(ll iii = 0; iii<n; iii++)
 
+
+//methods
 ll mult(ll a, ll b, ll p = mod)
 {
     return ((a % p) * (b % p)) % p;
@@ -46,6 +61,9 @@ void solve()
 
     }
 }
+
+
+//main function
 int main()
 {
     return 0;
