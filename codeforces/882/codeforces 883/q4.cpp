@@ -6,6 +6,7 @@ using namespace std;
 #define mod 1000000007
 #define ll long long
 #define ld long double
+#define lld long long double
 #define pub push_back
 #define pob pop_back
 #define pof pop_front
@@ -58,22 +59,34 @@ void solve()
     int t; cin>>t;
     while(t--)
     {
-        ll n, d, h;
-        cin>>n>>d>>h;
-        vector<ll> y(n+1);
-        for(ll i = 1; i<=n; i++) cin>>y[i];
-        double ch = h;
-        double maxd = 0.0;
-        for(int i = 1; i<=n; i++){
-            double diff = (double)(y[i] - y[i-1])/double(d);
-            ch+=diff;
-            if(ch < 0.0){
-                ch = 0.0;
-                maxd = max(maxd, ch);
-            }
+        ld n,d,h; cin>>n>>d>>h;
+        vector<ld> arr;
+        
+        for(ll i = 0; i<n; i++)
+        {
+            ld p; cin>>p;
+            arr.pub(p);
         }
-        double fh = maxd * (double)d;
-        cout<<fh<<endl;
+
+        sort(arr.begin(), arr.end());
+        long double area = (0.5)*(long double)(d)*(long double)(h);
+        long double secArea = area/pow(2,h);
+        long double sum = 0;
+        ll prev = LONG_LONG_MAX;
+        for(ll i = n-1; i>=0; i--)
+        {
+            ll high = arr[i] + h;
+            if(high < prev) {sum+=area;}
+            else{
+                ll levels = h - prev + arr[i];
+                long double ss = d + ((long double)(levels)/h)*d;
+                long double tba = (0.5)*(long double)(h - levels)*ss;
+               sum += tba;
+            }
+
+            prev = arr[i];
+        }
+        cout<<fixed<<setprecision(6)<<sum<<endl;
     }
 }
 
