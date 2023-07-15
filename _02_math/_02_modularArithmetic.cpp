@@ -1,8 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 #define mod 1000000007
+
 #define ll long long
+
 #define pie 3.1415926535898
+
 ll mult(ll a, ll b, ll p = mod)
 {
     return ((a % p) * (b % p)) % p;
