@@ -1,4 +1,4 @@
- #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 void insertt(deque<int> &dq, vector<int> &nums, int x)
