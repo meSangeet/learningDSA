@@ -9,7 +9,7 @@ bool search(vector<int> &nums, int target)
     int mid = s + (l - s) / 2;
     while (s <= l)
     {
-        cout<<mid<<" "<<s<<" "<<l<<endl;
+        cout << mid << " " << s << " " << l << endl;
         if (nums[mid] == target)
         {
             return true;
@@ -33,7 +33,7 @@ bool search(vector<int> &nums, int target)
         {
             if (nums[mid] < nums[l])
             {
-                l = mid-1;
+                l = mid - 1;
             }
             else if (nums[mid] > nums[l])
             {
@@ -72,10 +72,13 @@ int main()
          << "enter the target - ";
     cin >> target;
 
-    if(search(arr, target)){
-        cout<<"True"<<endl;
-    }else{
-        cout<<"False"<<endl;
+    if (search(arr, target))
+    {
+        cout << "True" << endl;
+    }
+    else
+    {
+        cout << "False" << endl;
     }
     return 0;
 }
