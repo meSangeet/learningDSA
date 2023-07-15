@@ -73,7 +73,6 @@ string toRoman(int n)
 
 int main()
 {
-
     int n;
     cin >> n;
     cout << toRoman(n);
