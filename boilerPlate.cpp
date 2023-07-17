@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef unsigned long long ull;
+typedef long double lld;
+
 
 //macros
 #define mod 1000000007
@@ -17,7 +20,8 @@ using namespace std;
 #define pie 3.1415926535898
 #define pb push_back
 #define fr(n) for(ll iii = 0; iii<n; iii++)
-
+#define rv(n,v) fr(n){ll pppp; cin>>pppp; v.pub(pppp);}
+#define take(a) ll a; cin>>a;
 
 //methods
 ll mult(ll a, ll b, ll p = mod)
@@ -53,6 +57,63 @@ ll fpow(ll x, ll y)
 }
 ll inv(ll a, ll p = mod) { return fpow(a, p - 2); }
 
+
+//debug
+#ifndef ONLINE_JUDGE
+#define debug(x) cerr << #x <<" -> "; _print(x); cerr << endl;
+#else
+#define debug(x)
+#endif
+
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
+
+template<class T> void _print(vector<T> v1)
+{
+    cerr << "[ ";
+    for(T i:v1){
+        _print(i);
+        cerr<<" ";
+    }
+    cerr<<" ]";
+}
+
+template<class T> void _print(set<T> v1)
+{
+    cerr << "[ ";
+    for(T i:v1){
+        _print(i);
+        cerr<<" ";
+    }
+    cerr<<" ]";
+}
+
+
+template<class T, class M> void _print(pair<T,M> p)
+{
+    cerr << "{ " << p.first <<" "<<p.second<<" }";
+}
+
+template<class T, class M> void _print(map<T,M> p)
+{
+    for(auto x : p)
+    cerr << "{ " << x.first <<" "<<x.second<<" }"<<endl;
+}
+
+template<class T, class M> void _print(unordered_map<T,M> p)
+{
+    for(auto x : p)
+    cerr << "{ " << x.first <<" "<<x.second<<" }"<<endl;
+}
+
+
+
+//solve for multiple test cases
 void solve()
 {
     int t; cin>>t;
@@ -66,5 +127,10 @@ void solve()
 //main function
 int main()
 {
+    #ifndef ONLINE_JUDGE
+        freopen("Error.txt", "w", stderr); // to print debug into error.txt file
+    #endif
+
+    
     return 0;
 }
