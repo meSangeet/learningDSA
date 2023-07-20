@@ -146,35 +146,35 @@ void solve()
         {
             for (int j = 0; j <= 2; j++)
             {
-                ll increment = 0;
-
-                ll x = A[0], y = A[1];
-
-                while(x%3 != i)
+                A = B;
+                A[0] = A[0]+i;
+                A[1] = A[1]+j;
+                count = i+j;
+                ll sum = A[0] + A[1] + A[2];
+                ll temp = sum % 3;
+                if (temp > 0)
                 {
-                    x++;
-                    increment++;
+                    A[2] += 3 - temp;
+                    count += 3 - temp;
+                    sum += 3 - temp;
                 }
-                while(y%3 != j)
+                debug(A);
+                for (ll i = 3; i < n; i++)
                 {
-                    y++;
-                    increment++;
-                }
-
-                for(int k = 2; k<n; k++)
-                {
-                    ll z = A[k];
-                    ll total = x+y+z;
-                    while(total%3 != 0)
+                    debug(A[i]);
+                    sum -= A[i - 3];
+                    sum += A[i];
+                    debug(sum);
+                    temp = sum % 3;
+                    if (temp > 0)
                     {
-                        z++;
-                        total++;
-                        increment++;
+                        A[i] += 3 - temp;
+                        sum += 3 - temp;
+                        count += 3 - temp;
                     }
-                    x = y;
-                    y = z;
+                    debug(A);
                 }
-                cnt = min(increment, cnt);
+                cnt = min(cnt, count);
             }
         }
 
