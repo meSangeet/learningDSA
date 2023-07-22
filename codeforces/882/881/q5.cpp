@@ -129,18 +129,6 @@ void _print(unordered_map<T, M> p)
         cerr << "{ " << x.first << " " << x.second << " }" << endl;
 }
 
-bool areGood(int x1, int y1, int x2, int y2)
-{
-    if(x1 == x2 || y1 == y2) return true;
-
-    int dif1 = abs(x1-x2);
-    int dif2 = abs(y1 - y2);
-
-    if(dif1 == dif2) return true;
-
-    return false;
-}
-
 // solve for multiple test cases
 void solve()
 {
@@ -148,40 +136,47 @@ void solve()
     cin >> t;
     while (t--)
     {
-        int n;
-        cin >> n;
-        vector<vector<int>> a;
-        unordered_map<int,int> x,y;
-        for(int i = 0; i<n; i++)
+        int n, m;
+        cin >> n >> m;
+        vector<int> a(n+1, 0);
+        map<pair<int, int>, pair<int,int>> curr;
+        for (int i = 0; i < m; i++)
         {
-            int p,q; cin>>p>>q;
-            a.pub({p,q});
+            int p, q;
+            cin >> p >> q;
+            int len = q - p + 1;
+            int req = len / 2 + 1;
+            curr[{p, q}].first = req;
         }
-
-        sort(a.begin(),a.end());
-        int count = 0;
-        for(int i = 0; i<n-1; i++)
+        int ans = 0, pp = -1;
+        int q;
+        cin >> q;
+        bool flag = true;
+        while (q--)
         {
-            int temp = 0;
-            while(i<n && a[i+1] == a[i])
+            debug(q);
+            ans++;
+            int p;
+            cin >> p;
+            if (a[p] == 0)
             {
-                temp++;
-                i++;
+                for (auto x : curr)
+                { 
+                    if(x.first.first <= p && x.first.second >= p)
+                    {
+                        x.second.second++;
+                        if(x.second.second >= x.second.first)
+                        {
+                            pp = ans;
+                            goto state;
+                        }
+                    }
+                }
             }
-            if(temp >= 2)
-            {
-                temp = nc2(temp)*2;
-            }
-            
-            for(int j = i+1; j<n; j++)
-            {
-                if(areGood(a[i][0], a[i][1], a[j][0], a[j][1]))
-                count+=2;
-            }
+            a[p] = 1;
         }
-
-        cout<<count<<"\n";
-
+        state:
+        cout << pp << "\n";
     }
 }
 
