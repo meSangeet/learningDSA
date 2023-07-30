@@ -80,69 +80,23 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 //-------------------------- SOLVE -------------------------/
 void solve() 
 {
-    ll n; cin>>n;
-    vector<ll> a,b;
-    for(ll i = 1; i<=(n-1); i++)
+    ll n,m,k,h;
+    cin>>n>>m>>k>>h;
+
+    vector<ll> H;
+    ll count = 0;
+    ll miin = 0, maax = k*m;
+    for(ll i = 0; i<n; i++)
     {
         ll p; cin>>p;
-        a.push_back(p);
-    }
-    if(a.size() == 1)
-    {
-        if(a[0] == 1 || a[0] == 2)
-        cout<<"YES"<<endl;
-        else cout<<"NO"<<endl;
-        return;
-    }
-    ll indi = -1;
-    b = a;
-    vector<bool> present(n+2, false);
-    present[a[0]] = true;
-    for(ll i = 1; i<(n-1); i++)
-    {
-        a[i] -= b[i-1];
-        if(present[a[i]] == true)
+        ll dif = abs((h-p));
+        if(dif > miin && dif <= maax)
         {
-            indi = a[i];
+            if(dif%k == 0 && dif/k < m) count++;
         }
-        if(a[i] < n+1 && a[i] >= 0)
-        present[a[i]] = true;
-    }
-    cout<<"felo";
-    for(int i = 0; i<n-1; i++)
-    {
-        if(a[i] > n) indi = a[i];
-    }
-    cout<<"hello";
-    ll p = -1, q = -1;
-    for(ll i = 1; i<=n; i++)
-    {
-        if(i == n)
-        {
-            if(present[n] == false && p == -1) {cout<<"YES"<<endl;
-            return;}
-        }
-        if(present[i] == false)
-        {
-            if(p == -1)
-            {
-                p = i;
-            }else if(q == -1){
-                q = i;
-            }else{
-                cout<<"NO"<<endl;
-                return;
-            }
-        }
-    }
-    if(present[n+1]) indi = n+1;
-    if((p+q) == indi)
-    {
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
     }
 
+    cout<<count<<endl;
 }
 
 //--------------------------- MAIN -------------------------/

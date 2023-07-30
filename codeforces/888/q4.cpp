@@ -80,6 +80,7 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 //-------------------------- SOLVE -------------------------/
 void solve() 
 {
+    cout<<1;
     ll n; cin>>n;
     vector<ll> a,b;
     for(ll i = 1; i<=(n-1); i++)
@@ -87,17 +88,10 @@ void solve()
         ll p; cin>>p;
         a.push_back(p);
     }
-    if(a.size() == 1)
-    {
-        if(a[0] == 1 || a[0] == 2)
-        cout<<"YES"<<endl;
-        else cout<<"NO"<<endl;
-        return;
-    }
     ll indi = -1;
     b = a;
+    cout<<1;
     vector<bool> present(n+2, false);
-    present[a[0]] = true;
     for(ll i = 1; i<(n-1); i++)
     {
         a[i] -= b[i-1];
@@ -105,33 +99,31 @@ void solve()
         {
             indi = a[i];
         }
+        cout<<a[i]<<" ";
         if(a[i] < n+1 && a[i] >= 0)
         present[a[i]] = true;
     }
-    cout<<"felo";
+    cout<<endl<<"felo";
+    cout<<endl;
+    for(int i = 0; i<n+1; i++)
+    {
+        cout<<present[i]<<" "; 
+    }
+    cout<<endl;
     for(int i = 0; i<n-1; i++)
     {
-        if(a[i] > n) indi = a[i];
+        cout<<a[i]<<" "; 
     }
-    cout<<"hello";
     ll p = -1, q = -1;
     for(ll i = 1; i<=n; i++)
     {
-        if(i == n)
-        {
-            if(present[n] == false && p == -1) {cout<<"YES"<<endl;
-            return;}
-        }
         if(present[i] == false)
         {
             if(p == -1)
             {
-                p = i;
-            }else if(q == -1){
-                q = i;
+                p = a[i];
             }else{
-                cout<<"NO"<<endl;
-                return;
+                q = a[i];
             }
         }
     }
@@ -142,7 +134,52 @@ void solve()
     }else{
         cout<<"NO"<<endl;
     }
+    /*
+    bool flag = true, already = false;
+    ll num, ind;
 
+    sort(a.begin(), a.end());
+
+    unordered_map<ll,ll> count;
+    ll prev = -1;
+    ll index = 0;
+    count[a[0]]++;
+    for(ll i = 1; i<(n-1); i++)
+    {
+        count[a[i]]++;
+        if((a[i]) == (a[i-1] + 2)) index = i;
+        if(count[a[i]] > 2)
+        {
+            cout<<"NO"<<endl;
+            return;
+        }
+
+        if(count[a[i]] == 2)
+        {
+            if(already)
+            {
+                cout<<"NO"<<endl;
+            }
+            if(i > 0) prev = a[i];
+            already = true;
+            flag = false;
+            num = a[i];
+            ind = i;
+        }
+    }
+
+    if(flag)
+    {
+        cout<<"NO"<<endl;
+        return;
+    }else{
+        if((prev + 1) == num)
+        {
+
+        }
+
+    }
+    */
 }
 
 //--------------------------- MAIN -------------------------/

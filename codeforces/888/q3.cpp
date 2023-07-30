@@ -80,63 +80,47 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 //-------------------------- SOLVE -------------------------/
 void solve() 
 {
-    ll n; cin>>n;
-    vector<ll> a,b;
-    for(ll i = 1; i<=(n-1); i++)
+    ll n,k; cin>>n>>k;
+    vector<ll>color;
+    for(ll i = 0; i<n; i++)
     {
-        ll p; cin>>p;
-        a.push_back(p);
+        ll p;  cin>>p;
+        color.push_back(p);
     }
-    if(a.size() == 1)
+
+    ll a = color[0], b = color[n-1];
+    bool flag1 = false, flag2 = false; ll count = 0, ind = 0;
+    for(ll i = 0; i<n; i++)
     {
-        if(a[0] == 1 || a[0] == 2)
-        cout<<"YES"<<endl;
-        else cout<<"NO"<<endl;
-        return;
-    }
-    ll indi = -1;
-    b = a;
-    vector<bool> present(n+2, false);
-    present[a[0]] = true;
-    for(ll i = 1; i<(n-1); i++)
-    {
-        a[i] -= b[i-1];
-        if(present[a[i]] == true)
+    
+        if(color[i] == a)
         {
-            indi = a[i];
+            count++;
         }
-        if(a[i] < n+1 && a[i] >= 0)
-        present[a[i]] = true;
-    }
-    cout<<"felo";
-    for(int i = 0; i<n-1; i++)
-    {
-        if(a[i] > n) indi = a[i];
-    }
-    cout<<"hello";
-    ll p = -1, q = -1;
-    for(ll i = 1; i<=n; i++)
-    {
-        if(i == n)
-        {
-            if(present[n] == false && p == -1) {cout<<"YES"<<endl;
-            return;}
+
+        if(count >= k){
+            flag1 = true;
+            ind = i;
+            break;
         }
-        if(present[i] == false)
+    }
+    count = 0;
+    if(a == b)
+    {
+        flag2 = flag1;
+    }else{
+        for(ll i = n-1; i>ind; i--)
         {
-            if(p == -1)
+            if(color[i] == b) count++;
+            if(count >= k)
             {
-                p = i;
-            }else if(q == -1){
-                q = i;
-            }else{
-                cout<<"NO"<<endl;
-                return;
+                flag2 = true;
+                break;
             }
         }
     }
-    if(present[n+1]) indi = n+1;
-    if((p+q) == indi)
+
+    if(flag1 && flag2)
     {
         cout<<"YES"<<endl;
     }else{

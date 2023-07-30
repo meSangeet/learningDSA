@@ -81,66 +81,35 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 void solve() 
 {
     ll n; cin>>n;
-    vector<ll> a,b;
-    for(ll i = 1; i<=(n-1); i++)
+    vector<ll> actual, sorted;
+    for(ll i = 0; i<n; i++)
     {
         ll p; cin>>p;
-        a.push_back(p);
+
+        actual.push_back(p);
     }
-    if(a.size() == 1)
+
+    sorted = actual;
+    sort(sorted.begin(), sorted.end());
+
+    bool flag = true;
+
+    for(ll i = 0; i<n; i++)
     {
-        if(a[0] == 1 || a[0] == 2)
-        cout<<"YES"<<endl;
-        else cout<<"NO"<<endl;
-        return;
-    }
-    ll indi = -1;
-    b = a;
-    vector<bool> present(n+2, false);
-    present[a[0]] = true;
-    for(ll i = 1; i<(n-1); i++)
-    {
-        a[i] -= b[i-1];
-        if(present[a[i]] == true)
+        int a = sorted[i]%2;
+        int b = actual[i]%2;
+        if(a!=b)
         {
-            indi = a[i];
-        }
-        if(a[i] < n+1 && a[i] >= 0)
-        present[a[i]] = true;
-    }
-    cout<<"felo";
-    for(int i = 0; i<n-1; i++)
-    {
-        if(a[i] > n) indi = a[i];
-    }
-    cout<<"hello";
-    ll p = -1, q = -1;
-    for(ll i = 1; i<=n; i++)
-    {
-        if(i == n)
-        {
-            if(present[n] == false && p == -1) {cout<<"YES"<<endl;
-            return;}
-        }
-        if(present[i] == false)
-        {
-            if(p == -1)
-            {
-                p = i;
-            }else if(q == -1){
-                q = i;
-            }else{
-                cout<<"NO"<<endl;
-                return;
-            }
+            flag = false;
+            break;
         }
     }
-    if(present[n+1]) indi = n+1;
-    if((p+q) == indi)
+
+    if(flag)
     {
-        cout<<"YES"<<endl;
+        cout<<"YES"<<"\n";
     }else{
-        cout<<"NO"<<endl;
+        cout<<"NO"<<"\n";
     }
 
 }
