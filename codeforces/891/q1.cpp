@@ -80,78 +80,28 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 //-------------------------- SOLVE -------------------------/
 void solve() 
 {
-    // ll n; cin>>n;
-    // vi a(n), b(n);
+    int n; cin>>n;
 
-    // read(a);
-    // read(b);
-
-    // vi ans;
-    // for(ll i = 0; i<n; i++)
-    // {
-    // vi al;
-    //     for(ll j = 0; j<n; j++)
-    //     {
-    //         if(i != j)
-    //         {
-    //             ll p = a[i] - a[j];
-    //             ll q = b[i] - b[j];
-
-    //             if(p >= q)
-    //             {
-    //                 al.pub(j+1);
-    //             }
-    //         }
-    //     }
-    //     if(al.size() == (n-1))
-    //     {
-    //         ans.pub(i+1);
-    //     }
-    // }
-
-    
-    // cout<<ans.size()<<endl;
-    // for(ll i = 0; i<ans.size(); i++)
-    // {
-    //     cout<<ans[i]<<" ";
-    // }
-    // cout<<endl;
-    ll n; cin>>n;
-    vi a(n), b(n);
- 
-    read(a);
-    read(b);
- 
-    map<ll,vi> m;
- 
-    for(ll i = 0; i<n; i++)
+    int counto  = 0;
+    int counte = 0;
+    for(int i = 0; i<n; i++)
     {
-        a[i] -= b[i];
+        int p; cin>>p;
+        if(p%2 == 1) counto++;
+        else counte++;
     }
 
+    bool flag = true;
 
-    ll ge = *max_element(all(a));
-
-    int cnt = 0;
-    vi ans;
-    rep(i,0,n)
+    if(counto%2 != 0)
     {
-        if(a[i] == ge)
-        {
-            cnt++;
-            ans.pub(i+1);
-        }
+        flag = false;
     }
 
-    cout<<cnt<<endl;
+    if(flag) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 
-    for(ll i = 0; i<ans.size(); i++)
-    {
-        cout<<ans[i]<<" ";
-    }
 
-    cout<<endl;
-  
 }
 
 //--------------------------- MAIN -------------------------/
