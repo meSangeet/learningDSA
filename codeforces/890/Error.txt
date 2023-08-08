@@ -1,0 +1,17 @@
+i++ -> 1
+sum -> 6
+sum -> 7
+sum -> 9
+sum -> 7
+i++ -> 2
+sum -> 1
+sum -> 2
+sum -> -2
+i++ -> 3
+sum -> 3
+sum -> 4
+sum -> 6
+sum -> 10
+sum -> 8
+i++ -> 4
+i++ -> 5
