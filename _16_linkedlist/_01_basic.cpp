@@ -52,7 +52,6 @@ int main()
         curr->next = temp;
         curr = temp;
     }
-
     printlist(head);
     del(head);
     cout<<endl;
