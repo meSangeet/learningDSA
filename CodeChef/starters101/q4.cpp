@@ -79,20 +79,7 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 
 //-------------------------- SOLVE -------------------------/
 
-int setBitNumber(int n)
-{
-    if (n == 0)
-        return 0;
- 
-    int msb = 0;
-    n = n / 2;
-    while (n != 0) {
-        n = n / 2;
-        msb++;
-    }
- 
-    return msb+1;
-}
+int mostSignificantBit(int n){ if (n == 0) return 0; int msb = 0; n = n / 2; while (n != 0) { n = n / 2;msb++;}return msb+1; }
 
 void solve() 
 {

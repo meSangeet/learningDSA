@@ -38,15 +38,6 @@ template <typename T> inline bool isPrime(T n){for (T i=2;i*i<=n;i++) if(n%i==0)
 template <typename T> inline T Power_MOD(T a,T b){T res=1;while(b>0){if(b&1)res=(res*a)%MOD;a=(a*a)%MOD;b>>=1;}return res;}
 template <typename T> inline T Power(T a,T b){long long res=1;while(b>0){if(b&1){res=res*a;}a*=a;b>>=1;}return res;}
 
-//------------------------Bit Manipulation------------------//
-
-//most significant bit       10101  -> returns 4
-template <class T> inline T msb(T n){ if (n == 0) return 0; T msb = 0; n = n / 2; while (n != 0) { n = n / 2;msb++;} return msb; }
-
-//least significant bit
-
-
-
 //-------------------------- Debug -------------------------/
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<" -> "; _print(x); cerr << endl;
@@ -88,9 +79,102 @@ template <class T> void _print(stack<T> stk){cerr<<"[ ";while(!stk.empty()){_pri
 
 //-------------------------- SOLVE -------------------------/
 
+void print4(int i)
+{
+    cout<<i+2<<" "<<i+3<<" "<<i<<" "<<i+1<<" ";
+}
+void print5(int i)
+{
+    cout<<i+3<<" "<<i+4<<" "<<i<<" "<<i+1<<" "<<i+2<<" ";
+}
+void print6(int i)
+{
+    for(int a = 3; a<6; a++)
+    {
+        cout<<i+a<<" ";
+    }
+
+    for(int a = 0; a<3; a++)
+    {
+        cout<<i+a<<" ";
+    }
+}
+void print7(int i)
+{
+    cout<<i+5<<" "<<i+6<<" ";
+    for(int a = 0; a<5; a++)
+    {
+        cout<<i+a<<" ";
+    }
+}
+void solve() 
+{
+    int n; cin>>n;
+    if(n<=3) 
+    {
+        cout<<-1<<endl;
+        return;
+    }
+    if(n%4 == 0)
+    {
+        for(int i = 1; i<=n; i += 4)
+        {
+            print4(i);
+        }
+        cout<<endl;
+        return;
+    }
+
+    if(n%4 == 1)
+    {
+        int i;
+        for(i = 1; i<=(n-5); i+=4)
+        {
+            print4(i);
+        }
+        print5(i);
+        cout<<endl;
+        return;
+    }
+    if(n%4 == 2)
+    {
+        int i;
+        for(i = 1; i<=(n - 6); i+=4)
+        {
+            print4(i);
+        }
+        print6(i);
+        cout<<endl;
+        return;
+    }
+    if(n%4 == 3)
+    {
+        int i;
+        for(i = 1; i<=(n - 7); i+=4)
+        {
+            print4(i);
+        }
+        print7(i);
+        cout<<endl;
+        return;
+    }
+}
 
 //--------------------------- MAIN -------------------------/
 int main() {
-    cout<<msb(15);
+
+    #ifndef ONLINE_JUDGE
+        freopen("Error.txt", "w", stderr); // to print debug into error.txt file
+    #endif
+
+    ios_base::sync_with_stdio(false); // to make input output faster
+    cin.tie(NULL);
+
+    int t = 1; 
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }
