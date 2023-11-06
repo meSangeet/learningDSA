@@ -2,7 +2,10 @@
 using namespace std;
 #define ll long long
 
+void dfs(vector<vector<int>> &graph, vector<int>& distances, vector<bool> &visited)
+{
 
+}
 
 //main function
 int main()
@@ -15,8 +18,9 @@ int main()
     cout<<"enter source - ";
     int s; cin>>s;
 
-    vector<int> distances(n,0);
+    vector<int> distances(n,-1);
     distances[s] = 0;
+    vector<bool> visted(n, false);
 
     
     return 0;
