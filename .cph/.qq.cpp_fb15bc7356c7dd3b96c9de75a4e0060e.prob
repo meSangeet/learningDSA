@@ -1,0 +1,1 @@
+{"name":"Local: qq","url":"c:\\Skills\\learningDSA\\qq.cpp","tests":[{"id":1704610710017,"input":"5\n7\n100\n2\n18\n23","output":"5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Skills\\learningDSA\\qq.cpp","group":"local","local":true}
