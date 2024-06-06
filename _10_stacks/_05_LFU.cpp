@@ -110,7 +110,7 @@ class LFU{
             }
             curSize++;
             //new value has to be added which is not there previously
-            minFreq = 1;
+            minFreq = 1; 
             List* listFreq = new List();
             if(freqListMap.find(minFreq) != freqListMap.end())
             {
