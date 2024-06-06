@@ -1,0 +1,1 @@
+{"name":"Local: q4","url":"c:\\Skills\\learningDSA\\CodeChef\\starters 137\\q4.cpp","tests":[{"id":1717600080936,"input":"3\n2 5\n1 5\n3 8\n7 2 7\n5 20\n18 3 1 4 19","output":"4\n12\n63"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Skills\\learningDSA\\CodeChef\\starters 137\\q4.cpp","group":"local","local":true}
