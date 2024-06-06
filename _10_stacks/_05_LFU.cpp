@@ -89,7 +89,9 @@ class LFU{
             Node* node = keyNode[key];
             int val = node->value;
             updateFreqListMap(node);
+            return val;
         }
+        return -1;
     }
 
     void put(int key, int val)
