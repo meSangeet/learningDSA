@@ -100,7 +100,7 @@ class LFU{
         if(keyNode.find(key) != keyNode.end())
         {
             Node* node = keyNode[key];
-            int val = node->value;
+            node->value = val;
             updateFreqListMap(node);
         }else{
             if(curSize == maxSize)
