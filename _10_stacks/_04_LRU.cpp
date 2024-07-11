@@ -71,7 +71,13 @@ class LRU
             deleteNode(Node);
         }
 
-        if(m.size() ==[[]]]])
+        if(m.size() == cap){
+            m.erase(tail -> prev -> key);
+            deleteNode(tail->prev);
+        }
+
+        addNode(new node(key_, value));
+        m[key_] = head->next;
     }
 };
 
