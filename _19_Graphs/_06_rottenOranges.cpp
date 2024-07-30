@@ -1,74 +1,51 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
-
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int r[] = {-1, 0, 1, 0}, c[] = {0, -1, 0, 1};
-        int totalOranges = 0, rottenOranges = 0;
-        queue<pair<pair<int,int>, int>> q; //queue to store rotten oranges
-        bool flag = false; //to check whether the grid contain any fresh orange or not
-        int ans = -1;
-        int rows = grid.size(), columns = grid[0].size();
-        for(int i = 0; i<rows; i++)
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<pair<pair<int,int>,int>> q;
+        int ans = 0;
+        for(int i = 0; i<m; i++)
         {
-            for(int j = 0; j<columns; j++)
+            for(int j = 0; j<n; j++)
+            {
+                if(grid[i][j] == 2)
+                {
+                    q.push({{i,j},0});
+                }
+            }
+        }
+        vector<int> a = {1,0,-1,0};
+        vector<int> b = {0,1,0,-1};
+
+        while(!q.empty())
+        {
+            pair<int,int> coord = q.front().first;
+            int lev = q.front().second;
+            q.pop();
+            for(int i = 0; i<4; i++)
+            {
+                int nr = coord.first + a[i];
+                int nc = coord.second + b[i];
+                if(nr >= 0 && nr < m && nc >=0 && nc < n && grid[nr][nc] == 1)
+                {
+                    q.push({{nr,nc},lev+1});
+                    grid[nr][nc] = 2;
+                    ans = lev+1;
+                }
+            }
+        }
+
+        for(int i = 0; i<m; i++)
+        {
+            for(int j = 0; j<n; j++)
             {
                 if(grid[i][j] == 1)
                 {
-                    flag = true;
-                    totalOranges++;
-                }
-                if(grid[i][j] == 2)
-                {
-                    q.push({{i,j}, 0});
-                    rottenOranges++;
-                    totalOranges++;
+                    return -1;
                 }
             }
-        }
-
-        //edge cases
-        if(!flag) return 0;
-        if(q.empty()) return -1;
-
-        ans = 0;
-        //general case
-        while(!q.empty())
-        {
-            auto rot = q.front();
-            q.pop();
-            int curLevel = rot.second;
-            int R = rot.first.first;
-            int C = rot.first.second;
-
-            for(int i = 0; i<4; i++)
-            {
-                 int newRow = R + r[i], newCol = C + c[i];
-                 if((newRow >= 0 && newRow < rows) && (newCol >= 0 && newCol < columns))
-                 {
-                     if(grid[newRow][newCol] == 1)
-                     {
-                         rottenOranges++;
-                         grid[newRow][newCol] = 2;
-                         q.push({{newRow, newCol}, curLevel+1});
-                         ans = max(ans, curLevel+1);
-                     }
-                 }
-            }
-        }
-        if(totalOranges != rottenOranges)
-        {
-            return -1;
         }
         return ans;
     }
 };
-
-//main function
-int main()
-{
-
-    return 0;
-}
