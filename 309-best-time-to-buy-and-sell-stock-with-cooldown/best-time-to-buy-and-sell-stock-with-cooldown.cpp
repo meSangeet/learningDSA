@@ -1,21 +1,20 @@
 class Solution {
 public:
-int maxProfit(vector<int>& prices) {
+    int maxProfit(vector<int>& prices) {
         int n = prices.size();
         if (n <= 1) return 0;
         
-        vector<int> buy(n, 0);
-        vector<int> sell(n, 0);
-        vector<int> cool(n, 0);
+        int buy = INT_MIN;  // Maximum profit if we've just bought or are ready to buy
+        int sell = 0;       // Maximum profit if we've just sold or are in cooldown
+        int prevSell = 0;   // Previous day's sell profit
         
-        buy[0] = -prices[0];
-        
-        for (int i = 1; i < n; ++i) {
-            buy[i] = max(buy[i-1], cool[i-1] - prices[i]);
-            sell[i] = max(sell[i-1], buy[i-1] + prices[i]);
-            cool[i] = max({cool[i-1], sell[i-1], buy[i-1]});
+        for (int price : prices) {
+            int tempBuy = buy;
+            buy = max(buy, prevSell - price);
+            prevSell = sell;
+            sell = max(sell, tempBuy + price);
         }
         
-        return max(sell[n-1], cool[n-1]);
+        return sell;
     }
 };
