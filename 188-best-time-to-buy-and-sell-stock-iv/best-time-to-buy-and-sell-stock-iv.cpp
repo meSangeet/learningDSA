@@ -14,16 +14,16 @@ public:
             return maxProfit;
         }
         
-        vector<int> states(2*k+1, INT_MIN);
-        states[0] = 0;
+        vector<int> buy(k+1, INT_MIN);
+        vector<int> sell(k+1, 0);
         
         for (int price : prices) {
-            for (int i = 0; i < 2*k; i += 2) {
-                states[i+1] = max(states[i+1], states[i] - price);
-                states[i+2] = max(states[i+2], states[i+1] + price);
+            for (int i = 1; i <= k; i++) {
+                buy[i] = max(buy[i], sell[i-1] - price);
+                sell[i] = max(sell[i], buy[i] + price);
             }
         }
         
-        return *max_element(states.begin(), states.end());
+        return sell[k];
     }
 };
