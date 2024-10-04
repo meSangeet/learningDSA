@@ -13,7 +13,7 @@ public:
         long long skillRequiredPerTeam = totalSkill/totalTeams;
         long long chemistry = 0;
         int presentInMap = 0;
-        map<long, long> m;
+        unordered_map<long, long> m;
         for(int x : skill){
             int needed = skillRequiredPerTeam - x;
             if(needed <= 0) return -1ll;
