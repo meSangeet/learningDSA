@@ -6,24 +6,20 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-int minimizeCost(int k, vector<int>& arr) {
-    int n = arr.size();
-    vector<int> dp(n, INT_MAX);  // dp[i] stores the minimum cost to reach stone i
-    dp[0] = 0;  // Base case: no cost to stay on the first stone
-
-    // Fill the dp array
-    for (int i = 1; i < n; ++i) {
-        // Check up to k previous stones
-        for (int j = 1; j <= k; ++j) {
-            if (i - j >= 0) {
-                dp[i] = min(dp[i], dp[i - j] + abs(arr[i] - arr[i - j]));
+    int minimizeCost(int k, vector<int>& arr) {
+        // Code here
+        int n = arr.size();
+        vector<int> dp(n,INT_MAX);
+        dp[0] = 0;
+        for(int i = 0; i<n; i++)
+        {
+            int times = k;
+            for(int j = i-1; j>=0 && times--; j--){
+                dp[i] = min(dp[i], dp[j] + abs(arr[i] - arr[j]));
             }
         }
+        return dp[n-1];
     }
-
-    // The last stone's dp value contains the minimum cost to reach it
-    return dp[n - 1];
-}
 };
 
 //{ Driver Code Starts.
