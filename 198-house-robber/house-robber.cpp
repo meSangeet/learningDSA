@@ -1,19 +1,28 @@
 class Solution {
 public:
-    int rob(vector<int>& arr) {
-    int n = arr.size();
-    if (n == 0) return 0;
-    if (n == 1) return arr[0];
-    
-    int prev2 = arr[0];
-    int prev1 = max(arr[0], arr[1]);
-    
-    for (int i = 2; i < n; i++) {
-        int current = max(prev1, prev2 + arr[i]);
-        prev2 = prev1;
-        prev1 = current;
+//Dynamic programming coding practice
+
+int fun(vector<int> &nums, int i, vector<int> &dp){
+    if(i < 0){
+        return 0;
     }
+
+    if(dp[i] != -1) return dp[i];
+
+    int take = fun(nums, i-2, dp) + nums[i];
     
-    return prev1;
-    }
+    int notTake = fun(nums, i-1, dp);
+    
+    return dp[i] = max(take, notTake);
+}
+
+int rob(vector<int>& nums) {
+    int n = nums.size();
+    
+    //f(i) = answer till ith index so we need to find f(n-1)
+    
+    //base case
+    vector<int> dp(n,-1);
+    return fun(nums, n-1, dp);
+}
 };
