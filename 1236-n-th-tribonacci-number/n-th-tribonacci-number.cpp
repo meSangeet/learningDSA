@@ -2,16 +2,19 @@ class Solution {
 public:
     int tribonacci(int n) {
         //tabulation start from base case and move till nth index
-        vector<int> dp = {0,1,1};
-        if(n < 3){
-            return dp[n];
-        }
+        int a = 0, b = 1, c = 1;
+        if(n == 0) return 0;
+        if(n == 1) return 1;
+        if(n == 2) return 1;
 
+        int cur = a + b + c;
         for(int i = 3; i<=n; i++){
-            int cur = dp[i-1] + dp[i-2] + dp[i-3];
-            dp.push_back(cur);
+            cur = a + b + c;
+            a = b;
+            b = c;
+            c = cur;
         }
 
-        return dp.back();
+        return cur;
     }
 };
