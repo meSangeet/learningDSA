@@ -20,7 +20,7 @@ public:
         int A = a-k, B = b-k, C = c-k;
         // cout<<A<<" "<<B<<" "<<C<<endl;
         if(A < 0 || B < 0 || C < 0) return -1;
-        int ans = -1;
+        int ans = 0;
         int l = 0;
         unordered_map<char, int> m;
         int n = s.length();
@@ -41,8 +41,6 @@ public:
                 }
             }
         }
-
-        if(ans == -1) return -1;
 
         return n - ans;
     }
