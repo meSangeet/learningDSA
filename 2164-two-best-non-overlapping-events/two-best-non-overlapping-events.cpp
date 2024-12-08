@@ -1,33 +1,47 @@
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
 class Solution {
 public:
     int maxTwoEvents(vector<vector<int>>& events) {
-        // Vector to hold all time points
-        vector<pair<int, int>> timePoints;
-
-        // Add start and end points for each event
-        for (const auto& event : events) {
-            timePoints.emplace_back(event[0], event[2]);  // Start time with value
-            timePoints.emplace_back(event[1] + 1, -event[2]); // End time with negative value
-        }
-
-        // Sort time points by time, with end points coming before start points if times are equal
-        sort(timePoints.begin(), timePoints.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
-            if (a.first == b.first) return a.second < b.second;
-            return a.first < b.first;
+        // Sort events by their end time
+        sort(events.begin(), events.end(), [](const vector<int>& a, const vector<int>& b) {
+            return a[1] < b[1];
         });
 
-        int maxSeen = 0;  // Maximum value of events before the current time
-        int result = 0;   // Maximum sum of two non-overlapping events
+        int n = events.size();
+        vector<int> dp(n, 0); // DP array to store the max value up to event i
+        int result = 0;
 
-        // Sweep through the time points
-        for (const auto& [time, value] : timePoints) {
-            if (value > 0) {
-                // Event starts: calculate max sum using the current value and maxSeen
-                result = max(result, maxSeen + value);
-            } else {
-                // Event ends: update maxSeen with the absolute value
-                maxSeen = max(maxSeen, -value);
+        // Function to find the latest non-overlapping event index using binary search
+        auto findNonOverlapping = [&](int idx) {
+            int low = 0, high = idx - 1, ans = -1;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (events[mid][1] < events[idx][0]) {
+                    ans = mid;  // This event is non-overlapping
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
             }
+            return ans;
+        };
+
+        for (int i = 0; i < n; ++i) {
+            // Update DP value for the current event
+            dp[i] = (i > 0) ? dp[i - 1] : 0; // Start with the previous max value
+            dp[i] = max(dp[i], events[i][2]); // Either skip or take the current event
+
+            // Find the maximum sum of two non-overlapping events
+            int nonOverlappingIdx = findNonOverlapping(i);
+            int maxTwoSum = events[i][2];
+            if (nonOverlappingIdx != -1) {
+                maxTwoSum += dp[nonOverlappingIdx];
+            }
+            result = max(result, maxTwoSum);
         }
 
         return result;
