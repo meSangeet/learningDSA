@@ -1,42 +1,35 @@
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <cstring>
-
-using namespace std;
-
 class Solution {
 public:
     int longestSubsequence(vector<int>& nums) {
         int n = nums.size();
-        int ans = 1;  
-        vector<vector<int>> dp(305, vector<int> (305, -1));  
-        vector<vector<int>> mx(305, vector<int> (305, -1));  
+        int maxLength = 1;  
+        vector<vector<int>> dp(310, vector<int> (305, -1));  
+        vector<vector<int>> maxSubseq(310, vector<int> (305, -1));  
 
-        for (auto num : nums) {
-            if (dp[num][0] < 1) dp[num][0] = 1;
+        for (auto currentNum : nums) {
+            if (dp[currentNum][0] < 1) dp[currentNum][0] = 1;
 
-            for (int prev = 1; prev <= 300; prev++) {
-                int currDiff = abs(num - prev); 
-                int mxLen = mx[prev][currDiff];  
+            for (int prevNum = 1; prevNum <= 305; prevNum++) {
+                int diff = abs(currentNum - prevNum); 
+                int prevMaxLen = maxSubseq[prevNum][diff];  
 
-                if (mxLen > 1) {
-                    dp[num][currDiff] = max(dp[num][currDiff], 1 + mxLen); 
+                if (prevMaxLen > 1) {
+                    dp[currentNum][diff] = max(dp[currentNum][diff], 1 + prevMaxLen); 
                 } else {
-                    if (mx[prev][0] > 0) {
-                        dp[num][currDiff] = max(dp[num][currDiff], 2); 
+                    if (maxSubseq[prevNum][0] > 0) {
+                        dp[currentNum][diff] = max(dp[currentNum][diff], 2); 
                     }
                 }
 
-                ans = max(ans, dp[num][currDiff]);  
+                maxLength = max(maxLength, dp[currentNum][diff]);  
             }
 
-            mx[num][299] = dp[num][299];
-            for (int i = 298; i >= 0; i--) {
-                mx[num][i] = max(dp[num][i], mx[num][i + 1]);  
+            maxSubseq[currentNum][302] = dp[currentNum][302];
+            for (int i = 301; i >= 0; i--) {
+                maxSubseq[currentNum][i] = max(dp[currentNum][i], maxSubseq[currentNum][i + 1]);  
             }
         }
 
-        return ans;  
+        return maxLength;  
     }
 };
