@@ -36,24 +36,24 @@ public:
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
                 int curNode = i;
-                vector<int> stack;
+                int hi = 0;
                 unordered_map<int, int> depth;
 
                 // Detect cycle using a stack and depth map
                 while (!visited[curNode]) {
                     visited[curNode] = true;
-                    stack.push_back(curNode);
-                    depth[curNode] = stack.size();
+                    hi++;
+                    depth[curNode] = hi;
                     curNode = favorite[curNode];
                 }
 
                 // Handle detected cycle
                 if (depth.count(curNode)) {
                     int cycleStart = curNode;
-                    int cycleLength = stack.size() - depth[curNode] + 1;
+                    int cycleLength = hi - depth[curNode] + 1;
 
                     if (cycleLength == 2) {
-                        int node1 = stack.back();
+                        int node1 = curNode;
                         int node2 = favorite[node1];
                         vector<bool> visitedSec(n, false);
                         visitedSec[node1] = true;
