@@ -27,9 +27,7 @@ public:
             for(int i = 0; i<4; i++){
                 int nx = x + dir[i].first;
                 int ny = y + dir[i].second;
-                if(visited.count({nx,ny})){
-                    //maa chudaye
-                }else{
+                if(!visited.count({nx,ny})){
                     if(nx >= 0 and ny >= 0 and nx < n and ny < m){
                         if(maze[nx][ny] == '.'){
                             visited.insert({nx,ny});
