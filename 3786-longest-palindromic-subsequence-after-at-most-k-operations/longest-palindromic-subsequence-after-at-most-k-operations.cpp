@@ -1,34 +1,53 @@
 class Solution {
 public:
-    int longestPalindromicSubsequence(string s, int k) {
-        int n = s.size();
-        vector<vector<vector<int>>> dp(n, vector<vector<int>>(n, vector<int>(k + 1, 0)));
+    int dist(char a, char b){
+        int a1 = abs(a-b);
+        int a2 = 26 - a1;
+        return min(a1, a2);
+    }
 
-        // Base case: Single character substrings are palindromes of length 1
-        for (int i = 0; i < n; i++) {
-            for (int cost = 0; cost <= k; cost++) {
-                dp[i][i][cost] = 1;
+    int longestPalindromicSubsequence(string s, int k) {
+        //dp[i][j][k] = longest palindromic subsequence in the string starting at ith index and ending at jth index with atmost k operations
+        int n = s.length();
+        vector<vector<vector<int>>> dp(n, vector<vector<int>> (n, vector<int> (k+1, 1)));
+        //fill the base case -> answer for the single character string will be 1
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<=k; j++){
+                dp[i][i][j] = 1;
             }
         }
 
-        // Iterate over substring lengths from 2 to n
-        for (int len = 2; len <= n; len++) {
-            for (int i = 0; i <= n - len; i++) {
-                int j = i + len - 1;
-
-                for (int cost = 0; cost <= k; cost++) {
-                    // Case 1: Exclude s[i] or s[j]
-                    dp[i][j][cost] = max(dp[i + 1][j][cost], dp[i][j - 1][cost]);
-
-                    // Case 2: If s[i] and s[j] are converted to be the same
-                    int changeCost = min(abs(s[i] - s[j]), 26 - abs(s[i] - s[j]));
-                    if (cost >= changeCost) {
-                        dp[i][j][cost] = max(dp[i][j][cost], 2 + dp[i + 1][j - 1][cost - changeCost]);
+        //now the max length of string will be n
+        for(int len = 2; len <= n; len++){
+            //now we will increase lengths one by one 
+            //also this will be done for all possible values of k
+            for(int i = 0; i<n-len+1; i++){
+                int st = i;
+                int end = i + len - 1;
+                //we are considering the string starting from st and ending at end
+                //let's consider for all values of k
+                for(int kk = 0; kk <= k; kk++){
+                    if(len == 2){
+                        int d = dist(s[st], s[end]);
+                        if(d <= kk){
+                            //it means this is possible
+                            dp[st][end][kk] = 2;
+                        }
+                    }else{
+                        //now we will have a subtring inside the start and ending indices
+                        dp[st][end][kk] = dp[st+1][end-1][kk];
+                        dp[st][end][kk] = max(dp[st][end][kk],dp[st][end-1][kk]);
+                        dp[st][end][kk] = max(dp[st][end][kk],dp[st+1][end][kk]);
+                        //now may be we will use some of the kk
+                        int d = dist(s[st], s[end]);
+                        if(d <= kk and kk-d >= 0 and st+1 <= end-1){
+                            dp[st][end][kk] = max(dp[st][end][kk], dp[st+1][end-1][kk-d] + 2);
+                        }
                     }
                 }
             }
         }
 
-        return dp[0][n - 1][k];
+        return dp[0][n-1][k];
     }
 };
