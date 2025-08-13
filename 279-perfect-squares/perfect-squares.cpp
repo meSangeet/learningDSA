@@ -14,15 +14,11 @@ public:
         //dp[i][j] -> minimum number of ways of getting to target j using the numbers 
         //at the first i indexes
 
-        vector<vector<int>> dp(numbers.size(), vector<int> (n+1, INT_MAX));
         vector<int> mintn(n+1, INT_MAX);
         mintn[0] = 0;
         //targeting 0 will always need 0 numbers
         // for(auto x : numbers) cout<<x<<" ";
         // cout<<endl<<endl;
-        for(int i = 0; i <= sz-1; i++){
-            dp[i][0] = 0;
-        }
         int mm = 0;
         //now for every target, current element can be selected or not
         for(int tar = 1; tar <= n; tar++){
@@ -34,13 +30,13 @@ public:
                 //selection is only possible if tar is greater than or equal to elem
                 int rem = tar - elem;
                 if(tar >= elem and mintn[rem] != INT_MAX){
-                    dp[i][tar] = min(dp[i][tar], mintn[rem]+1);
+                    mn = min(mn, mintn[rem]+1);
                 }
 
                 //case2 : don't select
                 // dp[i][tar] = min(dp[i][tar],mintn[tar]);
                 // cout<<dp[i][tar]<<" ";
-                mn = min(mn, dp[i][tar]);
+                // mn = min(mn, dp[i][tar]);
             }
             // cout<<endl;
 
