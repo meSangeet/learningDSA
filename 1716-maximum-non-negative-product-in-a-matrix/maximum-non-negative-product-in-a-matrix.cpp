@@ -1,4 +1,4 @@
-int64_t dp[15][15][2];
+long long dp[15][15][2];
 class Solution {
 public:
     static int maxProductPath(vector<vector<int>>& grid) {
