@@ -1,4 +1,3 @@
-// variant using resize
 class Solution {
 public:
     static string decodeCiphertext(string& encodedText, int rows) {
